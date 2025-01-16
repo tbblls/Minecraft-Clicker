@@ -1,0 +1,17 @@
+.blockButton {
+    width: 100px;
+    height: 100px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    background-image: url('/images/dirt.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.blockButton:hover {
+    background-color: #45a049;
+}
