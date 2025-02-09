@@ -1,11 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import BlockButton from '../components/block/block';
+import { useGlobalState } from '../state';
 
 export default function Home() {
-  const [score, setScore] = useState(0);
+  const [score, setScore] = useGlobalState('score');
   const [incrementor, setIncrementor] = useState(1);
+  const [autoIncrementor, setAutoIncrementor] = useGlobalState('autoIncrementor');
+
+  useEffect(() => {
+    if (autoIncrementor > 0) {
+      const interval = setInterval(() => {
+        setScore(prevScore => prevScore + autoIncrementor);
+      }, 1000);
+      return () => clearInterval(interval);
+    }
+  }, [autoIncrementor]);
 
   const handleClick = () => {
     setScore(score + incrementor);
@@ -27,7 +38,7 @@ export default function Home() {
       </main>
 
       <footer>
-       
+        {/* Auto increment button removed */}
       </footer>
 
       <style jsx>{`
@@ -71,6 +82,16 @@ export default function Home() {
             Bitstream Vera Sans Mono,
             Courier New,
             monospace;
+        }
+        .storeLink {
+          margin-left: 20px;
+          padding: 10px 20px;
+          background-color: #0070f3;
+          color: white;
+          border: none;
+          border-radius: 5px;
+          text-decoration: none;
+          cursor: pointer;
         }
       `}</style>
 
